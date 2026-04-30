@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Chandni ❤️</title>
+<title>For Chandni 🌙</title>
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
@@ -11,17 +11,27 @@
 body{
   margin:0;
   font-family:'Poppins',sans-serif;
-  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
   height:100vh;
-  overflow:hidden;
   display:flex;
   align-items:center;
   justify-content:center;
-  color:#333;
+  background:radial-gradient(circle at top,#0f2027,#203a43,#2c5364);
+  overflow:hidden;
 }
 
 .container{
   text-align:center;
+  perspective:1200px;
+}
+
+/* Glow background */
+.glow{
+  position:absolute;
+  width:300px;
+  height:300px;
+  background:radial-gradient(circle,#ff4d6d55,transparent);
+  filter:blur(80px);
+  z-index:0;
 }
 
 /* Envelope */
@@ -30,9 +40,16 @@ body{
   width:320px;
   height:200px;
   background:#ff8fab;
-  border-radius:8px;
+  border-radius:12px;
   cursor:pointer;
-  box-shadow:0 10px 25px rgba(0,0,0,0.3);
+  transform-style:preserve-3d;
+  transition:transform 0.6s ease;
+  box-shadow:0 20px 50px rgba(0,0,0,0.5);
+  z-index:2;
+}
+
+.envelope:hover{
+  transform:rotateY(10deg) rotateX(5deg);
 }
 
 .flap{
@@ -46,70 +63,83 @@ body{
   z-index:3;
 }
 
-.letter{
+.cover{
   position:absolute;
-  width:90%;
-  height:240px;
-  background:#fff;
-  left:5%;
-  bottom:0;
-  border-radius:10px;
-  padding:20px;
-  box-shadow:0 10px 20px rgba(0,0,0,0.25);
-  transform:translateY(100%);
-  transition:transform 1s ease;
+  width:100%;
+  height:100%;
+  background:#ff8fab;
   z-index:2;
-  overflow-y:auto;
 }
 
-/* Open animation */
+/* Letter */
+.letter{
+  position:absolute;
+  width:92%;
+  height:260px;
+  background:#fff;
+  left:4%;
+  bottom:-260px;
+  border-radius:14px;
+  padding:20px;
+  box-shadow:0 20px 40px rgba(0,0,0,0.4);
+  transition:all 1.3s cubic-bezier(.22,1.2,.36,1);
+  z-index:1;
+  opacity:0;
+  backdrop-filter:blur(5px);
+}
+
+/* Cinematic open */
 .open .flap{
   transform:rotateX(180deg);
 }
 
 .open .letter{
-  transform:translateY(-120px);
+  bottom:80px;
+  opacity:1;
+  transform:scale(1.02);
 }
 
+/* Text */
 h1{
   font-family:'Dancing Script',cursive;
   color:#ff4d6d;
-  margin-bottom:10px;
+  font-size:26px;
 }
 
 p{
   font-size:14px;
   line-height:1.6;
+  color:#333;
 }
 
 .signature{
   margin-top:15px;
-  font-weight:500;
 }
 
-button{
-  margin-top:25px;
-  padding:10px 20px;
-  border:none;
-  border-radius:20px;
-  background:#ff4d6d;
-  color:white;
-  cursor:pointer;
-}
-
-/* Floating hearts */
+/* Hearts */
 .hearts span{
   position:fixed;
-  bottom:-10px;
-  font-size:18px;
-  animation:float 6s linear infinite;
+  bottom:-20px;
   color:#ff4d6d;
+  animation:float 6s linear infinite;
 }
 
 @keyframes float{
   0%{transform:translateY(0);opacity:0}
   50%{opacity:1}
-  100%{transform:translateY(-110vh);opacity:0}
+  100%{transform:translateY(-120vh);opacity:0}
+}
+
+/* Button */
+button{
+  margin-top:25px;
+  padding:10px 20px;
+  border:none;
+  border-radius:25px;
+  background:#ff4d6d;
+  color:white;
+  cursor:pointer;
+  box-shadow:0 5px 15px rgba(0,0,0,0.3);
 }
 
 @media(max-width:600px){
@@ -120,11 +150,13 @@ button{
 
 <body>
 
+<div class="glow"></div>
 <div class="hearts" id="hearts"></div>
 
 <div class="container">
   <div class="envelope" id="env" onclick="openEnvelope()">
     <div class="flap"></div>
+    <div class="cover"></div>
 
     <div class="letter">
       <h1>Happy Birthday Chandni 🌙</h1>
@@ -146,7 +178,7 @@ button{
     </div>
   </div>
 
-  <button onclick="playMusic()">Play Music 🎵</button>
+  
 </div>
 
 <audio id="music" loop>
@@ -155,23 +187,30 @@ button{
 
 <script>
 function openEnvelope(){
-  document.getElementById('env').classList.toggle('open');
-  playMusic();
+  const env=document.getElementById('env');
+  env.classList.toggle('open');
+
+  // autoplay with slight delay for cinematic feel
+  setTimeout(()=>{
+    const music=document.getElementById('music');
+    music.volume = 0.4;
+    music.play().catch(()=>{});
+  },700);
 }
 
 function playMusic(){
   document.getElementById('music').play();
 }
 
-/* floating hearts */
+/* hearts */
 setInterval(()=>{
-  let heart=document.createElement('span');
-  heart.innerHTML='❤';
-  heart.style.left=Math.random()*100+'%';
-  heart.style.fontSize=(Math.random()*10+10)+'px';
-  document.getElementById('hearts').appendChild(heart);
-  setTimeout(()=>heart.remove(),6000);
-},500);
+  let h=document.createElement('span');
+  h.innerHTML='❤';
+  h.style.left=Math.random()*100+'%';
+  h.style.fontSize=(Math.random()*10+12)+'px';
+  document.getElementById('hearts').appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+},400);
 </script>
 
 </body>
