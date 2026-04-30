@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Envelope</title>
+<title>Happy Birthday Chandni ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Poppins:wght@300&display=swap" rel="stylesheet">
 
 <style>
 body{
@@ -12,95 +14,131 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
-  background:#0f2027;
-  font-family:sans-serif;
+  background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);
+  font-family:'Poppins',sans-serif;
+  color:white;
+  overflow:hidden;
 }
 
-/* Wrapper (IMPORTANT: controls clipping) */
-.wrapper{
-  position:relative;
-  width:320px;
-  height:200px;
+/* Container */
+.container{
+  text-align:center;
+  max-width:500px;
+  padding:20px;
+  animation:fadeIn 2s ease;
 }
 
-/* Envelope */
-.envelope{
+/* Title */
+h1{
+  font-family:'Playfair Display',serif;
+  font-size:32px;
+  margin-bottom:20px;
+  opacity:0;
+  animation:fadeUp 1.5s ease forwards;
+}
+
+/* Message */
+.message{
+  font-size:15px;
+  line-height:1.7;
+  opacity:0;
+  animation:fadeUp 2s ease forwards;
+  animation-delay:1s;
+}
+
+/* Signature */
+.signature{
+  margin-top:25px;
+  font-style:italic;
+  opacity:0;
+  animation:fadeUp 2s ease forwards;
+  animation-delay:2s;
+}
+
+/* Floating hearts */
+.hearts span{
   position:absolute;
-  width:100%;
-  height:100%;
-  background:#ff8fab;
-  border-radius:10px;
-  cursor:pointer;
-  overflow:hidden; /* hides letter initially */
+  bottom:-20px;
+  font-size:18px;
+  animation:float 6s linear infinite;
+  color:#ff6b81;
 }
 
-/* Flap */
-.flap{
-  position:absolute;
-  width:100%;
-  height:100%;
-  background:#ff4d6d;
-  clip-path:polygon(0 0,100% 0,50% 50%);
-  transform-origin:top;
-  transition:transform 0.6s ease;
-  z-index:3;
+@keyframes float{
+  0%{transform:translateY(0);opacity:0}
+  50%{opacity:1}
+  100%{transform:translateY(-120vh);opacity:0}
 }
 
-/* Letter */
-.letter{
-  position:absolute;
-  width:90%;
-  left:5%;
-  top:100%; /* starts below envelope */
-
-  background:white;
-  padding:15px;
-  border-radius:8px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.4);
-
-  transition:top 1s ease;
-  z-index:1;
+/* Animations */
+@keyframes fadeIn{
+  from{opacity:0}
+  to{opacity:1}
 }
 
-/* OPEN STATE */
-.open .flap{
-  transform:rotateX(180deg);
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
 }
-
-.open .letter{
-  top:-40px; /* comes out and stays readable */
-}
-
-/* Text */
-h2{margin:0;color:#ff4d6d}
-p{font-size:14px;color:#333;line-height:1.5}
 </style>
 </head>
 
 <body>
 
-<div class="wrapper" id="env">
-  <div class="envelope">
-    <div class="flap"></div>
+<div class="hearts" id="hearts"></div>
+
+<div class="container" onclick="playMusic()">
+  <h1>Happy Birthday Chandni 🌙</h1>
+
+  <div class="message">
+    I know I was unable to make it to Goa and celebrate your birthday.<br><br>
+
+    But I just wanted to create this small surprise to tell you how much I miss you.<br><br>
+
+    Even though I couldn't be there, my thoughts are with you today.<br><br>
+
+    You mean so much to me, and I wish I could see your beautiful smile in person.<br><br>
+
+    <b>Everything is going to be alright ❤️</b>
   </div>
 
-  <div class="letter">
-    <h2>Happy Birthday Chandni 🌙</h2>
-    <p>
-      I know I was unable to make it to Goa and celebrate your birthday.<br><br>
-      But I just wanted to create this for you... to remind you how special you are to me.<br><br>
-      Even though I couldn't be there, my thoughts are with you today.<br><br>
-      You mean so much to me ❤️
-    </p>
+  <div class="signature">
+    Meri Preethi ko Happy Birthday phirse 🎂💕<br><br>
+    Missing you so much,<br>
+    Always yours,<br>
+    <b>Kartik ❤️</b>
   </div>
 </div>
 
-<script>
-const env = document.getElementById('env');
+<audio id="music" loop>
+  <source src="Maula%20Mere%20Maula%20_%20Updated.mp3" type="audio/mp3">
+</audio>
 
-env.addEventListener('click', () => {
-  env.classList.add('open');
-});
+<script>
+function playMusic(){
+  const music = document.getElementById('music');
+  music.volume = 0;
+
+  music.play().catch(()=>{});
+
+  let vol = 0;
+  const fade = setInterval(()=>{
+    if(vol < 0.4){
+      vol += 0.02;
+      music.volume = vol;
+    } else clearInterval(fade);
+  },100);
+}
+
+/* floating hearts */
+setInterval(()=>{
+  let h = document.createElement('span');
+  h.innerHTML = '❤';
+  h.style.left = Math.random()*100 + '%';
+  h.style.fontSize = (Math.random()*10 + 12) + 'px';
+  document.getElementById('hearts').appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+},400);
 </script>
 
 </body>
