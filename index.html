@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday Preethi 🌙</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@700&family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0a0e27 0%, #16213e 50%, #0f3460 100%);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Animated stars background */
+    .stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0;
+      animation: twinkle 3s infinite ease-in-out;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 1; }
+    }
+
+    /* Floating hearts */
+    .hearts-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 2rem;
+      opacity: 0;
+      animation: floatHeart 8s ease-in forwards;
+    }
+
+    @keyframes floatHeart {
+      0% {
+        opacity: 0.6;
+        transform: translateY(100vh) translateX(0) scale(1);
+      }
+      50% {
+        opacity: 0.8;
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-100vh) translateX(100px) scale(0.5);
+      }
+    }
+
+    /* Main container */
+    .container {
+      position: relative;
+      z-index: 10;
+      max-width: 90vw;
+      width: 100%;
+      padding: 40px 30px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      border-radius: 30px;
+      text-align: center;
+      animation: slideUp 1s ease-out;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+      margin: 20px;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 8vw, 3.5rem);
+      margin-bottom: 15px;
+      background: linear-gradient(45deg, #e0c3fc, #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: fadeInDown 1.2s ease-out;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .moon {
+      display: inline-block;
+      animation: moonGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes moonGlow {
+      0%, 100% { filter: drop-shadow(0 0 10px rgba(200, 180, 255, 0.5)); }
+      50% { filter: drop-shadow(0 0 25px rgba(200, 180, 255, 0.8)); }
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1rem, 4vw, 1.3rem);
+      font-weight: 300;
+      color: #d4a5ff;
+      margin-bottom: 30px;
+      line-height: 1.6;
+      animation: fadeInUp 1.4s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .buttons-wrapper {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+      animation: fadeInUp 1.6s ease-out;
+    }
+
+    button {
+      padding: clamp(12px, 3vw, 15px) clamp(24px, 5vw, 32px);
+      font-size: clamp(0.9rem, 3vw, 1rem);
+      border: none;
+      border-radius: 50px;
+      background: linear-gradient(135deg, #c77dff, #e0aaff);
+      color: #0a0e27;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      touch-action: manipulation;
+      -webkit-user-select: none;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      font-weight: 600;
+      box-shadow: 0 10px 30px rgba(199, 125, 255, 0.3);
+      backdrop-filter: blur(10px);
+      border: 1.5px solid rgba(255, 255, 255, 0.2);
+    }
+
+    button:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 15px 40px rgba(199, 125, 255, 0.5);
+      background: linear-gradient(135deg, #e0aaff, #c77dff);
+    }
+
+    button:active {
+      transform: scale(0.95);
+    }
+
+    .reveal-btn {
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 10px 30px rgba(199, 125, 255, 0.3);
+      }
+      50% {
+        box-shadow: 0 10px 50px rgba(199, 125, 255, 0.6);
+      }
+    }
+
+    .music-btn {
+      background: linear-gradient(135deg, #a78bfa, #c4b5fd);
+    }
+
+    .music-btn:hover {
+      box-shadow: 0 15px 40px rgba(167, 139, 250, 0.5);
+    }
+
+    /* Message reveal section */
+    .message-section {
+      margin-top: 35px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .message {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1rem, 3.5vw, 1.2rem);
+      line-height: 1.8;
+      color: #e0d5ff;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      padding: 30px;
+      background: rgba(199, 125, 255, 0.1);
+      border-radius: 20px;
+      border-left: 3px solid #c77dff;
+      font-weight: 300;
+      letter-spacing: 0.5px;
+    }
+
+    .message.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .message-highlight {
+      color: #c77dff;
+      font-weight: 600;
+      font-style: italic;
+    }
+
+    /* Music controls */
+    .music-section {
+      margin-top: 30px;
+      padding: 25px;
+      background: rgba(167, 139, 250, 0.1);
+      border-radius: 20px;
+      border: 1.5px solid rgba(167, 139, 250, 0.3);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .message.show ~ .music-section,
+    .music-section.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .music-title {
+      font-size: clamp(0.95rem, 3vw, 1.1rem);
+      color: #a78bfa;
+      margin-bottom: 15px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .song-name {
+      color: #c77dff;
+      font-style: italic;
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 30px;
+      font-size: clamp(0.8rem, 2.5vw, 0.95rem);
+      color: #9d8fc4;
+      font-weight: 300;
+      letter-spacing: 0.3px;
+    }
+
+    /* Mobile optimizations */
+    @media (max-width: 768px) {
+      .container {
+        padding: 30px 20px;
+        border-radius: 25px;
+        margin: 15px;
+      }
+
+      h1 {
+        letter-spacing: 0.5px;
+      }
+
+      .buttons-wrapper {
+        gap: 10px;
+      }
+
+      button {
+        padding: 11px 20px;
+      }
+
+      .message {
+        padding: 20px;
+        font-size: 1.05rem;
+      }
+
+      body {
+        padding: 10px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 25px 15px;
+        max-width: 100%;
+      }
+
+      h1 {
+        margin-bottom: 10px;
+      }
+
+      .subtitle {
+        margin-bottom: 20px;
+      }
+
+      .buttons-wrapper {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      button {
+        width: 100%;
+        padding: 12px 20px;
+      }
+
+      .message {
+        padding: 15px;
+        margin-top: 20px;
+      }
+
+      .music-section {
+        padding: 20px;
+        margin-top: 20px;
+      }
+    }
+
+    /* Audio player styling */
+    audio {
+      width: 100%;
+      max-width: 100%;
+      margin-top: 15px;
+      accent-color: #c77dff;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.6s ease;
+    }
+
+    .message.show ~ .music-section audio,
+    .music-section.show audio {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Starry background -->
+  <div class="stars"></div>
+
+  <!-- Floating hearts -->
+  <div class="hearts-container"></div>
+
+  <!-- Main content -->
+  <div class="container">
+    <h1><span class="moon">🌙</span> Happy Birthday Chandni <span class="moon">🌙</span></h1>
+    
+    <div class="subtitle">
+      A special greeting from your heart, across the distance
+    </div>
+
+    <div class="buttons-wrapper">
+      <button class="reveal-btn" onclick="revealMessage()">Open Your Gift 💝</button>
+    </div>
+
+    <div class="message-section">
+      <div id="message" class="message">
+        <div style="margin-bottom: 20px;">Hi Chandni 🌙,</div>
+        
+        <div style="margin-bottom: 20px;">
+          I know I was unable to make it to Goa and celebrate your birthday. But I just wanted to create this quick greeting in order to wish you on this special day and also to tell you <span class="message-highlight">how much I miss you</span>.
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          Even though I couldn't be there, my thoughts are with you today. You mean so much to me, and I wish I could see your beautiful smile in person.
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <span class="message-highlight">Meri Preethi ko Happy Birthday. 🎂💕</span>
+        </div>
+
+        <div style="color: #c77dff; font-style: italic; margin-top: 25px;">
+          Missing you so much,<br>
+          Always yours,<br>
+          <span class="message-highlight">Kartik</span> ❤️
+        </div>
+
+        <div class="music-section" id="musicSection">
+          <div class="music-title">🎵 A Special Song Just For You 🎵</div>
+          <div style="color: #e0d5ff; margin-bottom: 15px; font-size: clamp(0.9rem, 3vw, 1rem);">
+            <span class="song-name">"Maula Mere Maula"</span> - A melody of love and memories
+          </div>
+          <audio id="audioPlayer" controls>
+            <source src="https://raw.githubusercontent.com/MKARTIK98/birthday-site/main/Maula%20Mere%20Maula%20_%20Updated.m4a" type="audio/mp4">
+            Your browser does not support the audio element.
+          </audio>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      Made with love and memories 💫✨
+    </div>
+  </div>
+
+  <script>
+    // Generate stars
+    function createStars() {
+      const starsContainer = document.querySelector('.stars');
+      const starCount = window.innerWidth > 768 ? 100 : 50;
+
+      for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.animationDelay = Math.random() * 3 + 's';
+        star.style.animationDuration = (2 + Math.random() * 2) + 's';
+        starsContainer.appendChild(star);
+      }
+    }
+
+    // Generate floating hearts
+    function createHeart() {
+      const heartsContainer = document.querySelector('.hearts-container');
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.innerHTML = '💕';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (6 + Math.random() * 3) + 's';
+      heartsContainer.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 9000);
+    }
+
+    // Create hearts continuously
+    setInterval(createHeart, 1500);
+
+    // Reveal message function
+    function revealMessage() {
+      const message = document.getElementById('message');
+      const musicSection = document.getElementById('musicSection');
+      message.classList.add('show');
+      musicSection.classList.add('show');
+    }
+
+    // Initialize on load
+    window.addEventListener('load', () => {
+      createStars();
+    });
+
+    // Handle window resize for responsive stars
+    window.addEventListener('resize', () => {
+      const stars = document.querySelectorAll('.star');
+      if (window.innerWidth > 768 && stars.length < 100) {
+        createStars();
+      }
+    });
+  </script>
+
+</body>
+</html>
