@@ -3,123 +3,113 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Chandni 🌙</title>
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+<title>For Chandni ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+
 <style>
 *{box-sizing:border-box}
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: radial-gradient(circle at top, #1a1a2e, #0f3460);
-  overflow: hidden;
-  color: white;
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  height:100vh;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#333;
 }
 
-/* Stars */
-.stars {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: transparent;
-  overflow: hidden;
+.container{
+  text-align:center;
 }
-.stars span {
-  position: absolute;
-  display: block;
-  width: 2px;
-  height: 2px;
-  background: white;
-  animation: twinkle 3s infinite ease-in-out;
+
+/* Envelope */
+.envelope{
+  position:relative;
+  width:320px;
+  height:200px;
+  background:#ff8fab;
+  border-radius:8px;
+  cursor:pointer;
+  box-shadow:0 10px 25px rgba(0,0,0,0.3);
 }
-@keyframes twinkle {
-  0%,100%{opacity:0.2}
+
+.flap{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:#ff4d6d;
+  clip-path:polygon(0 0,100% 0,50% 55%);
+  transform-origin:top;
+  transition:transform 0.8s ease;
+  z-index:3;
+}
+
+.letter{
+  position:absolute;
+  width:90%;
+  height:240px;
+  background:#fff;
+  left:5%;
+  bottom:0;
+  border-radius:10px;
+  padding:20px;
+  box-shadow:0 10px 20px rgba(0,0,0,0.25);
+  transform:translateY(100%);
+  transition:transform 1s ease;
+  z-index:2;
+  overflow-y:auto;
+}
+
+/* Open animation */
+.open .flap{
+  transform:rotateX(180deg);
+}
+
+.open .letter{
+  transform:translateY(-120px);
+}
+
+h1{
+  font-family:'Dancing Script',cursive;
+  color:#ff4d6d;
+  margin-bottom:10px;
+}
+
+p{
+  font-size:14px;
+  line-height:1.6;
+}
+
+.signature{
+  margin-top:15px;
+  font-weight:500;
+}
+
+button{
+  margin-top:25px;
+  padding:10px 20px;
+  border:none;
+  border-radius:20px;
+  background:#ff4d6d;
+  color:white;
+  cursor:pointer;
+}
+
+/* Floating hearts */
+.hearts span{
+  position:fixed;
+  bottom:-10px;
+  font-size:18px;
+  animation:float 6s linear infinite;
+  color:#ff4d6d;
+}
+
+@keyframes float{
+  0%{transform:translateY(0);opacity:0}
   50%{opacity:1}
-}
-
-.container {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 20px;
-}
-
-.envelope {
-  width: 320px;
-  height: 200px;
-  position: relative;
-  cursor: pointer;
-}
-
-.flap {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: #ff4d6d;
-  clip-path: polygon(0 0, 100% 0, 50% 50%);
-  transform-origin: top;
-  transition: transform 1s;
-}
-
-.body {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: #ff8fab;
-  border-radius: 6px;
-}
-
-.letter {
-  position: absolute;
-  width: 90%;
-  height: 90%;
-  background: #fff;
-  color: #333;
-  top: 5%;
-  left: 5%;
-  border-radius: 10px;
-  padding: 15px;
-  transform: translateY(100%);
-  transition: transform 1s;
-  overflow-y: auto;
-}
-
-.open .flap { transform: rotateX(180deg); }
-.open .letter { transform: translateY(0); }
-
-h1 {
-  font-family: 'Dancing Script', cursive;
-  color: #ff4d6d;
-}
-
-.typing {
-  border-right: 2px solid #ff4d6d;
-  white-space: pre-line;
-  overflow: hidden;
-}
-
-.hearts span {
-  position: absolute;
-  color: #ff4d6d;
-  font-size: 18px;
-  animation: float 6s linear infinite;
-}
-@keyframes float {
-  0%{transform:translateY(100vh);opacity:0}
-  50%{opacity:1}
-  100%{transform:translateY(-10vh);opacity:0}
-}
-
-button {
-  margin-top: 20px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 20px;
-  background: #ff4d6d;
-  color: white;
-  cursor: pointer;
+  100%{transform:translateY(-110vh);opacity:0}
 }
 
 @media(max-width:600px){
@@ -127,20 +117,35 @@ button {
 }
 </style>
 </head>
+
 <body>
 
-<div class="stars" id="stars"></div>
 <div class="hearts" id="hearts"></div>
 
 <div class="container">
-  <div class="envelope" onclick="openEnvelope()" id="env">
+  <div class="envelope" id="env" onclick="openEnvelope()">
     <div class="flap"></div>
-    <div class="body"></div>
+
     <div class="letter">
       <h1>Happy Birthday Chandni 🌙</h1>
-      <p id="text" class="typing"></p>
+
+      <p>
+        I know I was unable to make it to Goa and celebrate your birthday.<br><br>
+        But I just wanted to create this for you... to remind you how special you are to me.<br><br>
+        Even though I couldn't be there, my thoughts are with you today.<br><br>
+        You mean so much to me, and I wish I could see your beautiful smile in person.<br><br>
+        <b>Everything is going to be alright. ❤️</b>
+      </p>
+
+      <p class="signature">
+        Meri Preethi ko Happy Birthday phirse 🎂💕<br><br>
+        Missing you so much,<br>
+        Always yours,<br>
+        <b>Kartik ❤️</b>
+      </p>
     </div>
   </div>
+
   <button onclick="playMusic()">Play Music 🎵</button>
 </div>
 
@@ -149,39 +154,16 @@ button {
 </audio>
 
 <script>
-const message = `I know I was unable to make it to Goa and celebrate your birthday.\n\nBut I just wanted to create this to tell you how much I miss you.\n\nEven though I couldn't be there, my thoughts are with you.\n\nYou mean so much to me, and I wish I could see your smile.\n\nEverything is going to be alright. ❤️\n\nMeri Preethi ko Happy Birthday phirse 🎂💕\n\nMissing you so much,\nAlways yours,\nKartik ❤️`;
-
-let i=0;
-function typeWriter(){
-  if(i<message.length){
-    document.getElementById("text").innerHTML += message.charAt(i);
-    i++;
-    setTimeout(typeWriter,30);
-  }
-}
-
 function openEnvelope(){
   document.getElementById('env').classList.toggle('open');
-  setTimeout(()=>{
-    if(i===0) typeWriter();
-    playMusic();
-  },800);
+  playMusic();
 }
 
 function playMusic(){
   document.getElementById('music').play();
 }
 
-/* stars */
-for(let i=0;i<60;i++){
-  let star=document.createElement('span');
-  star.style.top=Math.random()*100+'%';
-  star.style.left=Math.random()*100+'%';
-  star.style.animationDelay=Math.random()*3+'s';
-  document.getElementById('stars').appendChild(star);
-}
-
-/* hearts */
+/* floating hearts */
 setInterval(()=>{
   let heart=document.createElement('span');
   heart.innerHTML='❤';
