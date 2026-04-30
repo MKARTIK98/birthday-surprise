@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Chandni 🌙</title>
+<title>Envelope</title>
 
 <style>
 body{
@@ -13,10 +13,10 @@ body{
   justify-content:center;
   align-items:center;
   background:#0f2027;
-  font-family:Arial, sans-serif;
+  font-family:sans-serif;
 }
 
-/* Envelope container */
+/* Envelope */
 .envelope{
   position:relative;
   width:320px;
@@ -24,7 +24,7 @@ body{
   background:#ff8fab;
   border-radius:10px;
   cursor:pointer;
-  overflow:hidden; /* IMPORTANT: hides letter inside */
+  overflow:hidden; /* hides letter */
 }
 
 /* Flap */
@@ -39,14 +39,14 @@ body{
   z-index:3;
 }
 
-/* Letter (INSIDE envelope) */
+/* Letter INSIDE */
 .letter{
   position:absolute;
   width:90%;
   left:5%;
-  top:100%;
-  transform:translateY(-100%); /* fully inside */
-
+  top:100%; /* start at bottom edge */
+  transform:translateY(0); /* hidden */
+  
   background:white;
   padding:15px;
   border-radius:8px;
@@ -56,50 +56,32 @@ body{
   z-index:1;
 }
 
-/* Open state */
+/* OPEN */
 .open .flap{
   transform:rotateX(180deg);
 }
 
 .open .letter{
-  transform:translateY(-180%); /* moves UP out of envelope */
+  transform:translateY(-120%); /* move UP out of envelope */
 }
 
 /* Text */
-h2{
-  margin-top:0;
-  color:#ff4d6d;
-}
-
-p{
-  font-size:14px;
-  line-height:1.5;
-  color:#333;
-}
+h2{margin:0;color:#ff4d6d}
+p{font-size:14px;color:#333}
 </style>
 </head>
 
 <body>
 
-<div class="envelope" onclick="openEnvelope()" id="env">
+<div class="envelope" id="env" onclick="openEnvelope()">
   <div class="flap"></div>
 
   <div class="letter">
     <h2>Happy Birthday Chandni 🌙</h2>
-
     <p>
       I know I was unable to make it to Goa and celebrate your birthday.<br><br>
-      But I just wanted to create this for you… to remind you how special you are to me.<br><br>
-      Even though I couldn't be there, my thoughts are with you today.<br><br>
-      You mean so much to me, and I wish I could see your beautiful smile in person.<br><br>
-      <b>Everything is going to be alright ❤️</b>
-    </p>
-
-    <p>
-      Meri Preethi ko Happy Birthday phirse 🎂💕<br><br>
-      Missing you so much,<br>
-      Always yours,<br>
-      <b>Kartik ❤️</b>
+      But I just wanted to create this for you...<br><br>
+      You mean so much to me ❤️
     </p>
   </div>
 </div>
