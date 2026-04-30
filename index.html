@@ -21,20 +21,34 @@ body{
   padding:40px 10px;
 }
 
+/* Overlay */
+.overlay{
+  position:fixed;
+  inset:0;
+  background:#000000cc;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:10;
+  font-size:18px;
+  text-align:center;
+  cursor:pointer;
+}
+
 /* Container */
 .container{
   text-align:center;
   max-width:500px;
   padding:20px;
   margin:auto;
-  animation:fadeIn 2s ease;
 }
 
-/* Title */
+/* Title with glow */
 h1{
   font-family:'Playfair Display',serif;
   font-size:32px;
   margin-bottom:20px;
+  text-shadow:0 0 10px rgba(255,255,255,0.6);
 }
 
 /* Message */
@@ -42,7 +56,7 @@ h1{
   font-size:15px;
   line-height:1.7;
   white-space:pre-line;
-  min-height:200px;
+  min-height:150px;
 }
 
 /* Cursor */
@@ -59,15 +73,28 @@ h1{
   25%,75%{opacity:0;}
 }
 
+/* Continue hint */
+.continue{
+  margin-top:20px;
+  font-size:13px;
+  opacity:0.7;
+  animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+  0%,100%{opacity:0.4;}
+  50%{opacity:1;}
+}
+
 /* Signature */
 .signature{
   margin-top:25px;
   font-style:italic;
   opacity:0;
-  transition:opacity 1s ease;
+  transition:opacity 1.5s ease;
 }
 
-/* Floating hearts */
+/* Hearts */
 .hearts span{
   position:absolute;
   bottom:-20px;
@@ -82,23 +109,20 @@ h1{
   50%{opacity:1}
   100%{transform:translateY(-120vh);opacity:0}
 }
-
-/* Animations */
-@keyframes fadeIn{
-  from{opacity:0}
-  to{opacity:1}
-}
 </style>
 </head>
 
 <body>
 
+<div class="overlay" id="overlay">Tap anywhere to begin ❤️</div>
+
 <div class="hearts" id="hearts"></div>
 
-<div class="container" onclick="playMusic()">
+<div class="container" id="container" style="display:none;">
   <h1>Happy Birthday Chandni 🌙</h1>
 
   <div class="message" id="typedText"></div>
+  <div class="continue" id="continueHint" style="display:none;">Tap to continue...</div>
 
   <div class="signature" id="signature">
     Meri Preethi ko Happy Birthday phirse 🎂💕<br><br>
@@ -112,42 +136,69 @@ h1{
 </audio>
 
 <script>
-const text = `I was unable to make it to Goa to celebrate your birthday. Full party miss krdiya mne.
+const sections = [
+`I was unable to make it to Goa to celebrate your birthday. Full party miss krdiya mne.`,
 
-But I just wanted to create this small surprise to tell you how much I miss you.
+`But I just wanted to create this small surprise to tell you how much I miss you.`,
 
-Bahut yaad aari hai aapki. I know this is not the kind of gift you were expecting, but mil nahi paunga bday ke time, so iss baar ke liye ye 🤭.
+`Bahut yaad aari hai aapki. I know this is not the kind of gift you were expecting, but mil nahi paunga bday ke time, so iss baar ke liye ye 🤭.`,
 
-You mean so much to me, and I wish I could see your beautiful smile in person.
+`You mean so much to me, and I wish I could see your beautiful smile in person.`,
 
-Kahi pe bhi tap karo ek baar screen pe.
+`Gaana yaad hai ye wala!!?? Sunta hu to apki yaad aati hai 😊`,
 
-Gaana yaad hai ye wala!!?? Sunta hu to apki yaad aati hai 😊
+`Everything is going to be alright...everything ❤️`
+];
 
-Everything is going to be alright...everything ❤️`;
-
+let currentSection = 0;
 let i = 0;
-const speed = 35;
+const speed = 30;
 const target = document.getElementById("typedText");
 
-function typeWriter(){
+function typeSection(){
+  const text = sections[currentSection];
   if(i < text.length){
     target.innerHTML = text.substring(0, i+1) + '<span class="cursor"></span>';
     i++;
-    setTimeout(typeWriter, speed);
+    setTimeout(typeSection, speed);
   } else {
-    target.innerHTML = text; // remove cursor at end
+    target.innerHTML = text;
+    document.getElementById("continueHint").style.display = "block";
+  }
+}
+
+function nextSection(){
+  if(currentSection < sections.length - 1){
+    currentSection++;
+    i = 0;
+    target.innerHTML = "";
+    document.getElementById("continueHint").style.display = "none";
+    setTimeout(typeSection, 300);
+  } else {
+    document.getElementById("continueHint").style.display = "none";
     document.getElementById("signature").style.opacity = 1;
   }
 }
 
-typeWriter();
+/* Start experience */
+document.getElementById("overlay").onclick = () => {
+  document.getElementById("overlay").style.display = "none";
+  document.getElementById("container").style.display = "block";
+  playMusic();
+  typeSection();
+};
+
+/* Tap to continue */
+document.body.addEventListener("click", (e)=>{
+  if(e.target.id !== "overlay" && document.getElementById("continueHint").style.display === "block"){
+    nextSection();
+  }
+});
 
 /* Music */
 function playMusic(){
   const music = document.getElementById('music');
   music.volume = 0;
-
   music.play().catch(()=>{});
 
   let vol = 0;
@@ -159,7 +210,7 @@ function playMusic(){
   },100);
 }
 
-/* floating hearts */
+/* Hearts */
 setInterval(()=>{
   let h = document.createElement('span');
   h.innerHTML = '❤';
