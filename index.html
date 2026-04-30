@@ -11,27 +11,18 @@
 *{box-sizing:border-box}
 body{
   margin:0;
-  font-family:'Poppins',sans-serif;
   height:100vh;
   display:flex;
   align-items:center;
   justify-content:center;
   background:radial-gradient(circle at top,#0f2027,#203a43,#2c5364);
+  font-family:'Poppins',sans-serif;
   overflow:hidden;
 }
 
+/* Container */
 .container{
-  text-align:center;
   perspective:1200px;
-}
-
-/* Glow */
-.glow{
-  position:absolute;
-  width:300px;
-  height:300px;
-  background:radial-gradient(circle,#ff4d6d55,transparent);
-  filter:blur(80px);
 }
 
 /* Envelope */
@@ -43,12 +34,7 @@ body{
   border-radius:12px;
   cursor:pointer;
   box-shadow:0 20px 50px rgba(0,0,0,0.5);
-  overflow:visible;
-  transition:transform 0.4s ease;
-}
-
-.envelope:hover{
-  transform:rotateY(8deg) rotateX(4deg);
+  overflow:hidden; /* KEY: hides letter inside */
 }
 
 /* Flap */
@@ -63,56 +49,43 @@ body{
   z-index:3;
 }
 
-/* Cover */
-.cover{
-  position:absolute;
-  width:100%;
-  height:100%;
-  background:#ff8fab;
-  z-index:2;
-}
-
-/* Letter */
+/* Letter (starts INSIDE) */
 .letter{
   position:absolute;
   width:92%;
   left:4%;
-  top:50%;
-  transform:translateY(120%) scale(0.95);
+  top:100%;
+  transform:translateY(-100%) scale(0.95); /* inside */
+
   background:white;
   border-radius:14px;
   padding:20px;
-  box-shadow:0 15px 25px rgba(0,0,0,0.3);
+  box-shadow:0 10px 20px rgba(0,0,0,0.3);
+
   transition:transform 1.2s cubic-bezier(.22,1.4,.36,1);
-  z-index:4;
-  background-image:linear-gradient(to bottom,#fff,#f9f9f9);
+  z-index:1;
 }
 
-/* Open state */
+/* Open animation */
 .open .flap{
   transform:rotateX(180deg);
 }
 
 .open .letter{
-  transform:translateY(-40%) rotate(-1.5deg) scale(1.02);
-  box-shadow:0 35px 70px rgba(0,0,0,0.6);
+  transform:translateY(-180%) rotate(-1.5deg) scale(1.02);
+  box-shadow:0 30px 60px rgba(0,0,0,0.6);
 }
 
 /* Text */
 h1{
   font-family:'Dancing Script',cursive;
   color:#ff4d6d;
-  font-size:26px;
 }
 
 p{
   font-size:14px;
   line-height:1.6;
   color:#333;
-}
-
-.signature{
-  margin-top:15px;
 }
 
 /* Hearts */
@@ -128,22 +101,17 @@ p{
   50%{opacity:1}
   100%{transform:translateY(-120vh);opacity:0}
 }
-
-@media(max-width:600px){
-  .envelope{width:90%}
-}
 </style>
 </head>
 
 <body>
 
-<div class="glow"></div>
 <div class="hearts" id="hearts"></div>
 
 <div class="container">
   <div class="envelope" id="env" onclick="openEnvelope()">
+    
     <div class="flap"></div>
-    <div class="cover"></div>
 
     <div class="letter">
       <h1>Happy Birthday Chandni 🌙</h1>
@@ -156,13 +124,14 @@ p{
         <b>Everything is going to be alright. ❤️</b>
       </p>
 
-      <p class="signature">
+      <p>
         Meri Preethi ko Happy Birthday phirse 🎂💕<br><br>
         Missing you so much,<br>
         Always yours,<br>
         <b>Kartik ❤️</b>
       </p>
     </div>
+
   </div>
 </div>
 
@@ -172,16 +141,14 @@ p{
 
 <script>
 function openEnvelope(){
-  const env=document.getElementById('env');
+  const env = document.getElementById('env');
   env.classList.toggle('open');
 
-  // delay for realism
   setTimeout(()=>{
     const music=document.getElementById('music');
     music.volume=0;
     music.play().catch(()=>{});
 
-    // fade in music
     let vol=0;
     const fade=setInterval(()=>{
       if(vol<0.4){
@@ -192,7 +159,7 @@ function openEnvelope(){
   },700);
 }
 
-// hearts
+/* hearts */
 setInterval(()=>{
   let h=document.createElement('span');
   h.innerHTML='❤';
